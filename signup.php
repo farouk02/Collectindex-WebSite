@@ -3,10 +3,10 @@ require "DataBaseConfig.php";
 
 $dbC = new DataBaseConfig();
 
-$servername = $dbc->servername;
-$dbusername = $dbc->username;
-$dbpassword = $dbc->password;
-$dbname = $dbc->databasename;
+$servername = $dbC->servername;
+$dbusername = $dbC->username;
+$dbpassword = $dbC->password;
+$dbname = $dbC->databasename;
 
 $password = $_POST['password'];
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
