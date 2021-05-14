@@ -1,8 +1,13 @@
 <?php
-$servername = "localhost";
-$dbusername = "root";
-$dbpassword = "";
-$dbname = "ade_db";
+
+require "DataBaseConfig.php";
+
+$dbC = new DataBaseConfig();
+
+$servername = $dbc->servername;
+$dbusername = $dbc->username;
+$dbpassword = $dbc->password;
+$dbname = $dbc->databasename;
 
 
 if (isset($_POST['username']) && isset($_POST['password'])) {

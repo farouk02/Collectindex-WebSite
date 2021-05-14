@@ -10,7 +10,7 @@ class DataBaseConfig
     public function __construct()
     {
 
-        $this->servername = 'http://127.0.0.1/';
+        $this->servername = 'localhost';
         $this->username = 'root';
         $this->password = '';
         $this->databasename = 'ade_db';

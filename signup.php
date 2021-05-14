@@ -1,10 +1,12 @@
 <?php
-require "DataBase.php";
+require "DataBaseConfig.php";
 
-$servername = "localhost";
-$dbusername = "root";
-$dbpassword = "";
-$dbname = "ade_db";
+$dbC = new DataBaseConfig();
+
+$servername = $dbc->servername;
+$dbusername = $dbc->username;
+$dbpassword = $dbc->password;
+$dbname = $dbc->databasename;
 
 $password = $_POST['password'];
 $hashed_password = password_hash($password, PASSWORD_DEFAULT);

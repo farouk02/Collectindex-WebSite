@@ -12,25 +12,27 @@ $dbname = $dbc->databasename;
 
 $heroes = array();
 
-if (isset($_POST['code_client'])) {
-  $code_client = $_POST['code_client'];
+if (isset($_GET['counter_num'])) {
+  $counter_num = $_GET['counter_num'];
 
   $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
   if ($conn->connect_errno) {
     die("connection faild: " . $conn->connect_errno);
   }
-  $sql = "SELECT counter_num,address,old_index,status FROM counter INNER JOIN client ON counter.code_client = client.code_client WHERE client.code_client = '" . $code_client . "'";
+
+  $sql = "SELECT new_index,date FROM collect INNER JOIN counter ON collect.num_counter = counter.num_counter WHERE collect.num_counter = '" . $counter_num . "'";
   $stmt = $conn->prepare($sql);
   $stmt->execute();
-  $stmt->bind_result($counter_num, $address, $old_index, $status);
+  $stmt->bind_result($new_index, $date);
+
+
+
   while ($stmt->fetch()) {
 
     //pushing fetched data in an array 
     $temp = [
-      'counter_num' => $counter_num,
-      'address' => $address,
-      'old_index' => $old_index,
-      'status' => $status
+      'new_index' => $new_index,
+      'date' => $date
     ];
 
     //pushing the array inside the hero array 
