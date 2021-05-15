@@ -20,7 +20,7 @@ if (isset($_GET['counter_num'])) {
     die("connection faild: " . $conn->connect_errno);
   }
 
-  $sql = "SELECT new_index,date FROM collect INNER JOIN counter ON collect.num_counter = counter.num_counter WHERE collect.num_counter = '" . $counter_num . "'";
+  $sql = "SELECT new_index,date FROM collect INNER JOIN counter ON collect.counter_num = counter.counter_num WHERE collect.counter_num = '" . $counter_num . "'";
   $stmt = $conn->prepare($sql);
   $stmt->execute();
   $stmt->bind_result($new_index, $date);
