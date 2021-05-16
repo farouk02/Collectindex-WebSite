@@ -25,8 +25,8 @@ if (isset($_POST['counter_num']) && isset($_POST['new_index'])) {
   $sql = "SELECT * FROM counter WHERE counter_num='" . $counter_num . "'";
 
   if ($conn->query($sql)->fetch_assoc()) {
-
-    $sql = "INSERT INTO `collect` (counter_num, new_index, date) VALUES ('" . $counter_num . "', " . $new_index . ", 'CURRENT_DAY')";
+    $date = date('Y/m/d');
+    $sql = "INSERT INTO `collect` (counter_num, new_index, date) VALUES ('" . $counter_num . "', " . $new_index . ", '" . $date . "')";
 
     if ($conn->query($sql) === TRUE) {
       $sql = "UPDATE counter SET old_index='" . $new_index . "' WHERE counter_num='" . $counter_num . "'";
