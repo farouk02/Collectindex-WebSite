@@ -26,33 +26,20 @@ if (isset($_POST['counter_num']) && isset($_POST['new_index'])) {
 
   if ($conn->query($sql)->fetch_assoc()) {
 
-    if ($row["username"] === NULL) {
-      $sql = "SELECT * FROM client WHERE username='" . $username . "'";
+    $sql = "INSERT INTO `collect` (counter_num, new_index, date) VALUES ('" . $counter_num . "', " . $new_index . ", 'CURRENT_DAY')";
 
-      $result = $conn->query($sql);
+    if ($conn->query($sql) === TRUE) {
+      $sql = "UPDATE counter SET old_index='" . $new_index . "' WHERE counter_num='" . $counter_num . "'";
 
-      if ($result->fetch_assoc()) {
-        echo "3";
+      if ($conn->query($sql) === TRUE) {
+        echo "1";
       } else {
-        $sql = "SELECT * FROM client WHERE email='" . $email . "'";
-        $result = $conn->query($sql);
-
-        if ($result->fetch_assoc()) {
-          echo "2";
-        } else {
-          $sql = "UPDATE client SET email='" . $email . "', username='" . $username . "', password='" . $hashed_password . "' WHERE code_client='" . $code_client . "'";
-
-          if ($conn->query($sql) === TRUE) {
-            echo "1";
-          } else {
-            echo "0";
-          }
-        }
+        echo "-1";
       }
     } else {
-      echo "4";
+      echo "Error: " . $sql . "<br>" . $conn->error;
     }
   } else {
-    echo "5";
+    echo "2";
   }
-} else echo "6";
+} else echo "3";
