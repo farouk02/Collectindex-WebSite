@@ -29,22 +29,22 @@ function sendVerificationEmail($userEmail, $token)
           text-decoration: none;
           padding: 8px 15px;
           border-radius: 5px;
-          color: #fff;
+          color: #ffffff;
         }
       </style>
     </head>
 
     <body>
       <div class="wrapper">
-        <p>Thank you for signing up on our site. Please click on the link below to verify your account:.</p>
-        <a href="http://192.168.1.100/ade/verifyToken.php?token=' . $token . '">Verify Email!</a>
+        <p>Merci de vous être inscrit sur notre application. Veuillez cliquer sur le lien ci-dessous pour vérifier votre adresse e-mail:.</p>
+        <a href="http://192.168.1.100/ade/verifyToken.php?token=' . $token . '">vérifier adresse e-mail!</a>
       </div>
     </body>
 
     </html>';
 
   // Create a message
-  $message = (new Swift_Message('Verify your email'))
+  $message = (new Swift_Message('vérifier votre adresse e-mail'))
     ->setFrom("faroukious0@gmail.com")
     ->setTo($userEmail)
     ->setBody($body, 'text/html');
