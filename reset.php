@@ -26,7 +26,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "UPDATE client SET password = '" . $hashed_password . "' WHERE email='" . $email . "'";
+    $sql = "UPDATE client SET verified = 0, token = null, password = '" . $hashed_password . "' WHERE email='" . $email . "'";
     if ($conn->query($sql) === TRUE) {
         echo "1";
     } else {
