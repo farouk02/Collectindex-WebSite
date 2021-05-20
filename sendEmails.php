@@ -37,7 +37,7 @@ function sendVerificationEmail($userEmail, $token)
     <body>
       <div class="wrapper">
         <p>Merci de vous être inscrit sur notre application. Veuillez cliquer sur le lien ci-dessous pour vérifier votre adresse e-mail:.</p>
-        <a href="http://192.168.1.100/ade/verifyToken.php?token=' . $token . '">vérifier adresse e-mail!</a>
+        <a href="http://192.168.43.100/ade/verifyToken.php?token=' . $token . '">vérifier adresse e-mail!</a>
       </div>
     </body>
 
