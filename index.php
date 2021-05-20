@@ -2,7 +2,7 @@
 <?php
 // redirect user to login page if they're not logged in
 if (empty($_SESSION['id'])) {
-  header('location: login.php');
+  header('location: view/adminLogin.php');
 }
 ?>
 <!DOCTYPE html>
