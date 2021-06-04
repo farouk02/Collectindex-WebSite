@@ -41,7 +41,7 @@ if (isset($_POST['code_client']) && isset($_POST['email']) && isset($_POST['user
 
   if ($row = $result->fetch_assoc()) {
 
-    if ($row["username"] === "") {
+    if ($row["username"] === null) {
       $sql = "SELECT * FROM client WHERE username='" . $username . "'";
 
       $result = $conn->query($sql);

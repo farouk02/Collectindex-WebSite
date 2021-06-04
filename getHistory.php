@@ -20,8 +20,9 @@ if (isset($_POST['counter_num'])) {
     die("connection faild: " . $conn->connect_errno);
   }
 
-  $sql = "SELECT new_index,date FROM collect INNER JOIN counter ON collect.counter_num = counter.counter_num WHERE collect.counter_num = '" . $counter_num . "' ORDER BY id DESC";
+  $sql = "SELECT new_index,date FROM collect INNER JOIN counter ON collect.counter_num = counter.counter_num WHERE collect.counter_num = ? ORDER BY id DESC";
   $stmt = $conn->prepare($sql);
+  $stmt->bind_param("s", $counter_num);
   $stmt->execute();
   $stmt->bind_result($new_index, $date);
 

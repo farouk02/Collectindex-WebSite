@@ -1,56 +1,352 @@
-<?php include 'authController.php' ?>
 <?php
-// redirect user to login page if they're not logged in
-if (empty($_SESSION['id'])) {
-  header('location: view/adminLogin.php');
+include "view/header.php";
+require "DataBaseConfig.php";
+
+$dbC = new DataBaseConfig();
+$servername = $dbC->servername;
+$dbusername = $dbC->username;
+$dbpassword = $dbC->password;
+$dbname = $dbC->databasename;
+
+$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+
+if ($conn->connect_errno) {
+  ("connection faild: " . $conn->connect_errno);
 }
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<div class="header">
+  <h1 class="page-header">
+    Dashboard <small>Summary of your App</small>
+  </h1>
+</div>
+<div id="page-inner">
+  <!-- /. ROW  -->
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="main.css">
-  <title>User verification system PHP</title>
-</head>
 
-<body>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 offset-md-4 home-wrapper">
+  <div class="row">
+    <div class="col-md-3 col-sm-12 col-xs-12">
 
-        <!-- Display messages -->
-        <?php if (isset($_SESSION['message'])) : ?>
-          <div class="alert <?php echo $_SESSION['type'] ?>">
-            <?php
-            echo $_SESSION['message'];
-            unset($_SESSION['message']);
-            unset($_SESSION['type']);
-            ?>
+      <!-- Display messages -->
+      <?php if (isset($_SESSION['message'])) : ?>
+        <div class="alert <?php echo $_SESSION['type'] ?>">
+          <?php
+          echo $_SESSION['message'];
+          unset($_SESSION['message']);
+          unset($_SESSION['type']);
+          ?>
+        </div>
+      <?php endif; ?>
+
+      <h4>Welcome, <?php echo $_SESSION['fullname']; ?></h4>
+      <a href="logout.php" style="color: red">Logout</a>
+
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <!-- Advanced Tables -->
+      <div class="panel panel-default">
+        <div class="panel-heading">Clients</div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+              <thead>
+                <tr>
+                  <th>Code client</th>
+                  <th>Nom</th>
+                  <th>Prenom</th>
+                  <th>Engine version</th>
+                  <th>CSS grade</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <?php
+
+
+                $sql = "SELECT counter.code_client,firstname,lastname,counter_num,old_index,status  FROM counter INNER JOIN client ON counter.code_client = client.code_client";
+
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
+                $stmt->bind_result($code_client, $firstname, $lastname, $counter_num, $old_index, $status);
+
+                while ($stmt->fetch()) {
+                  echo '<tr class="odd gradeX">';
+                  echo '<td class="center">' . $code_client . '</td>';
+                  echo '<td class="center">' . $firstname . '</td>';
+                  echo '<td class="center">' . $lastname . '</td>';
+                  echo '<td class="center">' . $counter_num . '</td>';
+                  echo '<td class="center">' . $old_index . '</td>';
+                  echo '<td class="center">' . $status . '</td>';
+                  echo '</tr>';
+                }
+
+                ?>
+
+
+              </tbody>
+            </table>
           </div>
-        <?php endif; ?>
+        </div>
+      </div>
+      <!--End Advanced Tables -->
+    </div>
+  </div>
 
-        <h4>Welcome, <?php echo $_SESSION['username']; ?></h4>
-        <a href="logout.php" style="color: red">Logout</a>
-        <?php if (!$_SESSION['verified']) : ?>
-          <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            You need to verify your email address!
-            Sign into your email account and click
-            on the verification link we just emailed you
-            at
-            <strong><?php echo $_SESSION['email']; ?></strong>
-          </div>
-        <?php else : ?>
-          <button class="btn btn-lg btn-primary btn-block">I'm verified!!!</button>
-        <?php endif; ?>
+  <!-- /. ROW  -->
+
+  <div class="row">
+    <div class="col-md-3 col-sm-12 col-xs-12">
+      <div class="panel panel-primary text-center no-boder blue">
+        <div class="panel-left pull-left blue">
+          <i class="fa fa-eye fa-5x"></i>
+        </div>
+        <div class="panel-right">
+          <h3>10,253</h3>
+          <strong> Daily Visits</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xs-12">
+      <div class="panel panel-primary text-center no-boder blue">
+        <div class="panel-left pull-left blue">
+          <i class="fa fa-shopping-cart fa-5x"></i>
+        </div>
+
+        <div class="panel-right">
+          <h3>33,180</h3>
+          <strong> Sales</strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xs-12">
+      <div class="panel panel-primary text-center no-boder blue">
+        <div class="panel-left pull-left blue">
+          <i class="fa fa fa-comments fa-5x"></i>
+        </div>
+        <div class="panel-right">
+          <h3>16,022</h3>
+          <strong> Comments </strong>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xs-12">
+      <div class="panel panel-primary text-center no-boder blue">
+        <div class="panel-left pull-left blue">
+          <i class="fa fa-users fa-5x"></i>
+        </div>
+        <div class="panel-right">
+          <h3>36,752</h3>
+          <strong>No. of Visits</strong>
+        </div>
       </div>
     </div>
   </div>
-</body>
 
-</html>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">Line Chart</div>
+        <div class="panel-body">
+          <div id="morris-line-chart"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-7">
+      <div class="panel panel-default">
+        <div class="panel-heading">Bar Chart Example</div>
+        <div class="panel-body">
+          <div id="morris-bar-chart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-body easypiechart-panel">
+          <h4>Customers</h4>
+          <div class="easypiechart" id="easypiechart-blue" data-percent="82">
+            <span class="percent">82%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-body easypiechart-panel">
+          <h4>Sales</h4>
+          <div class="easypiechart" id="easypiechart-orange" data-percent="55">
+            <span class="percent">55%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-body easypiechart-panel">
+          <h4>Profits</h4>
+          <div class="easypiechart" id="easypiechart-teal" data-percent="84">
+            <span class="percent">84%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-body easypiechart-panel">
+          <h4>No. of Visits</h4>
+          <div class="easypiechart" id="easypiechart-red" data-percent="46">
+            <span class="percent">46%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/.row-->
+
+  <div class="row">
+    <div class="col-md-9 col-sm-12 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Area Chart</div>
+        <div class="panel-body">
+          <div id="morris-area-chart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Donut Chart Example</div>
+        <div class="panel-body">
+          <div id="morris-donut-chart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12"></div>
+  </div>
+  <!-- /. ROW  -->
+
+  <div class="row">
+    <div class="col-md-4 col-sm-12 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Tasks Panel</div>
+        <div class="panel-body">
+          <div class="list-group">
+            <a href="#" class="list-group-item">
+              <span class="badge">7 minutes ago</span>
+              <i class="fa fa-fw fa-comment"></i> Commented on a post
+            </a>
+            <a href="#" class="list-group-item">
+              <span class="badge">16 minutes ago</span>
+              <i class="fa fa-fw fa-truck"></i> Order 392 shipped
+            </a>
+            <a href="#" class="list-group-item">
+              <span class="badge">36 minutes ago</span>
+              <i class="fa fa-fw fa-globe"></i> Invoice 653 has paid
+            </a>
+            <a href="#" class="list-group-item">
+              <span class="badge">1 hour ago</span>
+              <i class="fa fa-fw fa-user"></i> A new user has been added
+            </a>
+            <a href="#" class="list-group-item">
+              <span class="badge">1.23 hour ago</span>
+              <i class="fa fa-fw fa-user"></i> A new user has added
+            </a>
+            <a href="#" class="list-group-item">
+              <span class="badge">yesterday</span>
+              <i class="fa fa-fw fa-globe"></i> Saved the world
+            </a>
+          </div>
+          <div class="text-right">
+            <a href="#">More Tasks <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 col-sm-12 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Responsive Table Example</div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>S No.</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>User Name</th>
+                  <th>Email ID.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>John</td>
+                  <td>Doe</td>
+                  <td>John15482</td>
+                  <td>name@site.com</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Kimsila</td>
+                  <td>Marriye</td>
+                  <td>Kim1425</td>
+                  <td>name@site.com</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Rossye</td>
+                  <td>Nermal</td>
+                  <td>Rossy1245</td>
+                  <td>name@site.com</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Richard</td>
+                  <td>Orieal</td>
+                  <td>Rich5685</td>
+                  <td>name@site.com</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Jacob</td>
+                  <td>Hielsar</td>
+                  <td>Jac4587</td>
+                  <td>name@site.com</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>Wrapel</td>
+                  <td>Dere</td>
+                  <td>Wrap4585</td>
+                  <td>name@site.com</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /. ROW  -->
+
+  <footer>
+    <p>
+      All right reserved. Template by:
+      <a href="http://localhost.com">ADE - Collect</a>
+    </p>
+  </footer>
+</div>
+<!-- /. PAGE INNER  -->
+<?php
+include "view/footer.php";
+?>

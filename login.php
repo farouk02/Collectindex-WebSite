@@ -3,7 +3,6 @@
 require "DataBaseConfig.php";
 
 $dbC = new DataBaseConfig();
-
 $servername = $dbC->servername;
 $dbusername = $dbC->username;
 $dbpassword = $dbC->password;

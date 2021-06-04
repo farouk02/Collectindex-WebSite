@@ -1,7 +1,10 @@
 <?php
-session_destroy();
+session_start();
+
 unset($_SESSION['id']);
-unset($_SESSION['username']);
-unset($_SESSION['email']);
-unset($_SESSION['verify']);
-header("location: login.php");
+unset($_SESSION['fullname']);
+unset($_SESSION['is_admin']);
+
+if (!isset($_SESSION['id'])) {
+  header("location: adminLogin.php");
+}
