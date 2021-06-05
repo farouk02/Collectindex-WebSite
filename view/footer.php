@@ -42,6 +42,11 @@
   function upM(bu) {
     $("#upModal").modal();
     $("#disUpCodeClient").val(bu.getAttribute("data"));
+    $("#upCodeClient").val(bu.getAttribute("data"));
+    $("#firstname").val(bu.getAttribute("firstname"));
+    $("#lastname").val(bu.getAttribute("lastname"));
+    $("#username").val(bu.getAttribute("username"));
+    $("#password").val(bu.getAttribute("password"));
   }
 
   function delM(bu) {

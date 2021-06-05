@@ -6,11 +6,11 @@
         <a href="/ade/clients.php"><i class="fa fa-dashboard"></i> CLIENTs</a>
       </li>
       <li>
-        <a href="/ade/counter.php"><i class="fa fa-dashboard"></i> COMPTEURs</a>
+        <a href="/ade/counters.php"><i class="fa fa-dashboard"></i> COMPTEURs</a>
       </li>
       <?php
       if ($_SESSION['is_admin'] === "1") {
-        echo '<li><a href="/ade/user.php"><i class="fa fa-dashboard"></i> UTILISATEURs</a></li>';
+        echo '<li><a href="/ade/users.php"><i class="fa fa-dashboard"></i> UTILISATEURs</a></li>';
       }
       ?>
       <li>
