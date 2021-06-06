@@ -4,7 +4,7 @@
     <ul class="nav" id="main-menu">
 
       <li>
-        <a class="active-menu" href="/ade"><i class="fa fa-desktop"></i> HOME</a>
+        <a href="/ade/index.php"><i class="fa fa-desktop"></i> HOME</a>
       </li>
       <li>
         <a href="/ade/clients.php"><i class="fa fa-group"></i> CLIENTs</a>
@@ -13,7 +13,7 @@
         <a href="/ade/counters.php"><i class="fa fa-dashboard"></i> COMPTEURs</a>
       </li>
       <?php
-      if ($_SESSION['is_admin'] === "1") {
+      if ($isAdmin) {
         echo '<li><a href="/ade/users.php"><i class="fa fa-sitemap"></i> UTILISATEURs</a></li>';
         echo '<li><a href="/ade/periods.php"><i class="fa fa-clock-o"></i> COLLECT DATEs</a></li>';
       }

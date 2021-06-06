@@ -2,10 +2,6 @@
 include "view/header.php";
 require "model/User.php";
 
-$isAdmin = ($_SESSION['is_admin'] === "1") ? true : false;
-
-
-
 $u = new User();
 $dbC = new DataBaseConfig();
 $servername = $dbC->servername;

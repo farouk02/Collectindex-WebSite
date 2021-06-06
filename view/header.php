@@ -5,6 +5,8 @@ session_start();
 if (!isset($_SESSION['id'])) {
   header("location: adminLogin.php");
 }
+
+$isAdmin = ($_SESSION['is_admin'] === "1") ? true : false;
 ?>
 
 <!DOCTYPE html>

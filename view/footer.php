@@ -25,12 +25,6 @@
 <script src="assets/js/dataTables/jquery.dataTables.js"></script>
 <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
 <script>
-  function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
   $(document).ready(function() {
     $("#dataTables-example").dataTable();
   });
@@ -67,6 +61,17 @@
     $("#delModal").modal();
     $("#disDelCodeClient").val(bu.getAttribute("data"));
   }
+
+  $(function() {
+    var current = location.pathname;
+    $('#main-menu li a').each(function() {
+      var $this = $(this);
+      // if the current path is like this link, make it active
+      if ($this.attr('href').indexOf(current) !== -1) {
+        $this.addClass('active-menu');
+      }
+    })
+  })
 </script>
 <!-- Custom Js -->
 <script src="assets/js/custom-scripts.js"></script>

@@ -43,8 +43,6 @@ if (isset($_POST["upButton"])) {
   }
 }
 
-$isAdmin = ($_SESSION['is_admin'] === "1") ? true : false;
-
 ?>
 
 <div class="header">

@@ -9,7 +9,7 @@ $dbpassword = $dbC->password;
 $dbname = $dbC->databasename;
 
 
-if (isset($_POST['counter_num']) && isset($_POST['new_index'])) {
+if (isset($_POST['counter_num']) && isset($_POST['new_index']) && isset($_POST['old_index'])) {
 
   $counter_num = $_POST['counter_num'];
   $new_index = $_POST['new_index'];
