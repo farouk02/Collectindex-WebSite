@@ -50,18 +50,20 @@ if ($conn->connect_errno) {
     <div class="col-md-12">
       <!-- Advanced Tables -->
       <div class="panel panel-default">
-        <div class="panel-heading">Clients</div>
+        <div class="panel-heading">Consultation</div>
         <div class="panel-body">
           <div class="table-responsive">
             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
               <thead>
                 <tr>
+                  <th>#</th>
                   <th>Code client</th>
                   <th>Nom</th>
-                  <th>Prenom</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
-                  <th>Status</th>
+                  <th>Prénom</th>
+                  <th>Num. Compteur</th>
+                  <th>Ancien index</th>
+                  <th>Nouvel index</th>
+                  <th>Quantité</th>
                 </tr>
               </thead>
               <tbody>
@@ -69,21 +71,37 @@ if ($conn->connect_errno) {
                 <?php
 
 
-                $sql = "SELECT counter.code_client,firstname,lastname,counter_num,old_index,status  FROM counter INNER JOIN client ON counter.code_client = client.code_client";
+                $sql = "SELECT client.code_client,firstname,lastname,username,counter.counter_num,status,old_index FROM counter INNER JOIN client ON counter.code_client = client.code_client";
 
                 $stmt = $conn->prepare($sql);
                 $stmt->execute();
-                $stmt->bind_result($code_client, $firstname, $lastname, $counter_num, $old_index, $status);
+                $stmt->bind_result($code_client, $firstname, $lastname, $username, $counter_num, $status, $new_index);
 
+                $i = 1;
                 while ($stmt->fetch()) {
-                  echo '<tr class="odd gradeX">';
-                  echo '<td class="center">' . $code_client . '</td>';
-                  echo '<td class="center">' . $firstname . '</td>';
-                  echo '<td class="center">' . $lastname . '</td>';
-                  echo '<td class="center">' . $counter_num . '</td>';
-                  echo '<td class="center">' . $old_index . '</td>';
-                  echo '<td class="center">' . $status . '</td>';
-                  echo '</tr>';
+
+
+                  $conn2 = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+                  $sql = "SELECT new_index,date FROM collect INNER JOIN counter ON collect.counter_num = counter.counter_num AND collect.counter_num=? limit 1";
+                  $stmt2 = $conn2->prepare($sql);
+                  $stmt2->bind_param("s", $counter_num);
+                  $stmt2->execute();
+                  $stmt2->bind_result($old_index, $date);
+                  $stmt2->fetch();
+
+                  if ($username && $status = 1) {
+                    echo '<tr class="odd gradeX' . (($new_index - $old_index < 10) ? ' danger' : '') . '">';
+                    echo '<td class="center">' . $i++ . '</td>';
+                    echo '<td class="center">' . $code_client . '</td>';
+                    echo '<td class="center">' . $firstname . '</td>';
+                    echo '<td class="center">' . $lastname . '</td>';
+                    echo '<td class="center">' . $counter_num . '</td>';
+                    echo '<td class="center">' . $old_index . '</br><small>' . $date . '</small></td>';
+                    echo '<td class="center">' . $new_index . '</td>';
+                    echo '<td class="center">' . $new_index - $old_index . '</td>';
+
+                    echo '</tr>';
+                  }
                 }
 
                 ?>

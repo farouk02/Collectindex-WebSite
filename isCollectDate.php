@@ -18,8 +18,6 @@ $mounth = Date("m");
 $day = Date("d");
 
 
-$heroes = array();
-
 $sql = "SELECT id FROM collect_date WHERE mounth = '" . $mounth . "' AND '" . $day . "' BETWEEN start_day - 1 AND end_day + 1 ";
 
 if ($conn->query($sql)->fetch_assoc()) {
