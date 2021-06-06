@@ -13,14 +13,6 @@
 
 <!-- Metis Menu Js -->
 <script src="assets/js/jquery.metisMenu.js"></script>
-<!-- Morris Chart Js -->
-<script src="assets/js/morris/raphael-2.1.0.min.js"></script>
-<script src="assets/js/morris/morris.js"></script>
-
-<script src="assets/js/easypiechart.js"></script>
-<script src="assets/js/easypiechart-data.js"></script>
-
-<script src="assets/js/Lightweight-Chart/jquery.chart.js"></script>
 <!-- DATA TABLE SCRIPTS -->
 <script src="assets/js/dataTables/jquery.dataTables.js"></script>
 <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
@@ -43,13 +35,17 @@
     $("#address").val(bu.getAttribute("address"));
     $("#old_index").val(bu.getAttribute("old_index"));
     $("#status").val(bu.getAttribute("status"));
-    console.log(bu.getAttribute("status"));
+
     if (bu.getAttribute("status") == 1) {
       $("#status1").prop("checked", true);
     }
     if (bu.getAttribute("status") == 0) {
       $("#status2").prop("checked", true);
     }
+
+    $('#mounth').val(bu.getAttribute("mounth"));
+    $('#start_day').val(bu.getAttribute("start_day"));
+    $('#end_day').val(bu.getAttribute("end_day"));
 
     $("#firstname").val(bu.getAttribute("firstname"));
     $("#lastname").val(bu.getAttribute("lastname"));

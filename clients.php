@@ -126,7 +126,7 @@ if (isset($_POST["upButton"])) {
 <div class="modal fade" id="upModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form role="form" action="#" method="post">
+      <form role="form" action="" method="post">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
             &times;
@@ -165,7 +165,7 @@ if (isset($_POST["upButton"])) {
 <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form role="form" action="#" method="post">
+      <form role="form" action="" method="post">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
             &times;
@@ -192,7 +192,7 @@ if (isset($_POST["upButton"])) {
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form role="form" action="#" method="post">
+      <form role="form" action="" method="post">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
             &times;

@@ -21,15 +21,12 @@ $isAdmin = ($_SESSION['is_admin'] === "1") ? true : false;
   <link href="assets/css/bootstrap.css" rel="stylesheet" />
   <!-- FontAwesome Styles-->
   <link href="assets/css/font-awesome.css" rel="stylesheet" />
-  <!-- Morris Chart Styles-->
-  <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
   <!-- Custom Styles-->
   <link href="assets/css/custom-styles.css" rel="stylesheet" />
   <!-- main Styles-->
   <link href="main.css" rel="stylesheet" type="text/css" />
   <!-- Google Fonts-->
   <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="assets/js/Lightweight-Chart/cssCharts.css" />
   <!-- TABLE STYLES-->
   <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
 
