@@ -2,22 +2,24 @@
   <div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
   <div class="sidebar-collapse">
     <ul class="nav" id="main-menu">
+
       <li>
-        <a href="/ade/clients.php"><i class="fa fa-dashboard"></i> CLIENTs</a>
+        <a class="active-menu" href="/ade"><i class="fa fa-desktop"></i> HOME</a>
+      </li>
+      <li>
+        <a href="/ade/clients.php"><i class="fa fa-group"></i> CLIENTs</a>
       </li>
       <li>
         <a href="/ade/counters.php"><i class="fa fa-dashboard"></i> COMPTEURs</a>
       </li>
       <?php
       if ($_SESSION['is_admin'] === "1") {
-        echo '<li><a href="/ade/users.php"><i class="fa fa-dashboard"></i> UTILISATEURs</a></li>';
+        echo '<li><a href="/ade/users.php"><i class="fa fa-sitemap"></i> UTILISATEURs</a></li>';
+        echo '<li><a href="/ade/periods.php"><i class="fa fa-clock-o"></i> COLLECT DATEs</a></li>';
       }
       ?>
       <li>
-        <a class="active-menu" href="/ade"><i class="fa fa-dashboard"></i> HOME</a>
-      </li>
-      <li>
-        <a href="ui-elements.php"><i class="fa fa-desktop"></i> UI Elements</a>
+        <a href="ui-elements.php"><i class="fa fa-clock-o"></i> UI Elements</a>
       </li>
       <li>
         <a href="chart.php"><i class="fa fa-bar-chart-o"></i> Charts</a>

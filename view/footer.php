@@ -43,6 +43,20 @@
     $("#upModal").modal();
     $("#disUpCodeClient").val(bu.getAttribute("data"));
     $("#upCodeClient").val(bu.getAttribute("data"));
+    $("#counter_num").val(bu.getAttribute("data"));
+
+    $("#code_client").val(bu.getAttribute("code_client"));
+    $("#address").val(bu.getAttribute("address"));
+    $("#old_index").val(bu.getAttribute("old_index"));
+    $("#status").val(bu.getAttribute("status"));
+    console.log(bu.getAttribute("status"));
+    if (bu.getAttribute("status") == 1) {
+      $("#status1").prop("checked", true);
+    }
+    if (bu.getAttribute("status") == 0) {
+      $("#status2").prop("checked", true);
+    }
+
     $("#firstname").val(bu.getAttribute("firstname"));
     $("#lastname").val(bu.getAttribute("lastname"));
     $("#username").val(bu.getAttribute("username"));

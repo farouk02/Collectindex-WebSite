@@ -19,19 +19,27 @@ if (isset($_POST["delButton"])) {
   if (isset($_POST['dis_code_client'])) {
     if ($c->del_client($_POST["dis_code_client"])) {
       echo '<div class="alert alert-success">';
-      echo '<strong>Well done!</strong> You successfully read this important alert message.';
+      echo '<strong>Bien fait!</strong> Vous avez réussi à supprimer le client.';
       echo '</div>';
     }
   }
 }
 if (isset($_POST["addButton"])) {
   if (isset($_POST['add_code_client']) && isset($_POST['add_firstname']) && isset($_POST['add_lastname'])) {
-    $c->add_client($_POST['add_code_client'], $_POST['add_firstname'], $_POST['add_lastname']);
+    if ($c->add_client($_POST['add_code_client'], $_POST['add_firstname'], $_POST['add_lastname'])) {
+      echo '<div class="alert alert-success">';
+      echo '<strong>Bien fait!</strong> Vous avez ajouté le client avec succès.';
+      echo '</div>';
+    }
   }
 }
 if (isset($_POST["upButton"])) {
   if (isset($_POST['dis_up_code_client']) && isset($_POST['code_client']) && isset($_POST['firstname']) && isset($_POST['lastname'])) {
-    $c->up_client($_POST['code_client'], $_POST['firstname'], $_POST['lastname'], $_POST["dis_up_code_client"]);
+    if ($c->up_client($_POST['code_client'], $_POST['firstname'], $_POST['lastname'], $_POST["dis_up_code_client"])) {
+      echo '<div class="alert alert-success">';
+      echo '<strong>Bien fait!</strong> Vous avez réussi à mettre à jour le client .';
+      echo '</div>';
+    }
   }
 }
 
@@ -96,7 +104,7 @@ $isAdmin = ($_SESSION['is_admin'] === "1") ? true : false;
                   }
 
                   echo '<td class="center">
-                    <button onClick="upM(this)" class="btn btn-warning btn-sm" data-toggle="modal" data="' . $code_client . '">Modifier</button>
+                    <button onClick="upM(this)" class="btn btn-warning btn-sm" data-toggle="modal" data="' . $code_client . '" firstname="' . $firstname . '" lastname="' . $lastname . '">Modifier</button>
                     <button onClick="delM(this)" class="btn btn-danger btn-sm" data-toggle="modal" data="' . $code_client . '">Supprimer</button>
                   </td>';
                   echo '</tr>';
@@ -137,11 +145,11 @@ $isAdmin = ($_SESSION['is_admin'] === "1") ? true : false;
           </div>
           <div class="form-group">
             <label for="firstname">Nom</label>
-            <input name="firstname" type="firstname" class="form-control" required />
+            <input id="firstname" name="firstname" type="firstname" class="form-control" required />
           </div>
           <div class="form-group">
             <label for="lastname">Prenom</label>
-            <input name="lastname" type="lastname" class="form-control" required />
+            <input id="lastname" name="lastname" type="lastname" class="form-control" required />
           </div>
         </div>
         <div class="modal-footer">

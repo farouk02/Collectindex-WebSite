@@ -23,7 +23,7 @@ if (isset($_POST["delButton"])) {
   if (isset($_POST['dis_code_client'])) {
     if ($u->del_user($_POST["dis_code_client"])) {
       echo '<div class="alert alert-success">';
-      echo '<strong>Well done!</strong> You successfully delete user.';
+      echo '<strong>Bien fait!</strong> Vous avez réussi à supprimer l\'utilisateur.';
       echo '</div>';
     }
   }
@@ -32,7 +32,7 @@ if (isset($_POST["addButton"])) {
   if (isset($_POST['add_firstname']) && isset($_POST['add_lastname']) && isset($_POST['add_username']) && isset($_POST['add_password'])) {
     if ($u->add_user($_POST['add_firstname'], $_POST['add_lastname'], $_POST['add_username'], $_POST['add_password'])) {
       echo '<div class="alert alert-success">';
-      echo '<strong>Well done!</strong> You successfully add new user.';
+      echo '<strong>Bien fait!</strong> Vous avez ajouté avec succès un nouvel utilisateur.';
       echo '</div>';
     }
   }
@@ -41,7 +41,7 @@ if (isset($_POST["upButton"])) {
   if (isset($_POST['dis_up_code_client']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['username']) && isset($_POST['password'])) {
     if ($u->up_user($_POST['firstname'], $_POST['lastname'], $_POST['username'], $_POST['password'],  $_POST["dis_up_code_client"])) {
       echo '<div class="alert alert-success">';
-      echo '<strong>Well done!</strong> You successfully update user.';
+      echo '<strong>Bien fait!</strong> Vous avez réussi à mettre à jour l\'utilisateur.';
       echo '</div>';
     }
   }
@@ -94,13 +94,13 @@ if (isset($_POST["upButton"])) {
                     echo '<td class="center">' . $i++ . '</td>';
                     echo '<td class="center">' . $firstname . '</td>';
                     echo '<td class="center">' . $lastname . '</td>';
-                    echo '<th>' . ((!$is_admin) ? 'USER' : 'ADMIN') . '</th>';
-                    echo '<th>' . ((!$is_admin) ? $username : 'NO_ACCESS') . '</th>';
-                    echo '<th>' . ((!$is_admin) ? $password : 'NO_ACCESS') . '</th>';
+                    echo '<td>' . ((!$is_admin) ? 'USER' : 'ADMIN') . '</td>';
+                    echo '<td>' . ((!$is_admin) ? $username : 'NO_ACCESS') . '</td>';
+                    echo '<td>' . ((!$is_admin) ? $password : 'NO_ACCESS') . '</td>';
                     echo '<td class="center">';
                     if (!$is_admin) {
                       echo '<button onClick="upM(this)" class="btn btn-warning btn-sm" data-toggle="modal" data="' . $id . '" firstname="' . $firstname . '" lastname="' . $lastname . '" username="' . $username . '" password="' . $password . '"">Modifier</button> ';
-                      echo '<button onClick="delM(this)" class="btn btn-danger btn-sm" data-toggle="modal" data="' . $id . '" firstname="' . $firstname . '" lastname="' . $lastname . '" username="' . $username . '" password="' . $password . '"">Supprimer</button>';
+                      echo '<button onClick="delM(this)" class="btn btn-danger btn-sm" data-toggle="modal" data="' . $id . '">Supprimer</button>';
                     }
                     echo '</td>';
                     echo '</tr>';

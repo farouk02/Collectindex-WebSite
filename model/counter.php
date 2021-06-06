@@ -1,23 +1,13 @@
 <?php
-
 require "DataBaseConfig.php";
 
 class Counter
 {
-  public $counter_num;
-  public $address;
-  public $old_index;
-  public $status;
-
-  public function __construct($counter_num, $address, $old_index, $status)
+  public function __construct()
   {
-    $this->counter_num = $counter_num;
-    $this->address = $address;
-    $this->old_index = $old_index;
-    $this->status = $status;
   }
 
-  public function add_counter($counter_num, $address, $old_index, $status)
+  public function add_counter($counter_num, $code_client, $address, $old_index, $status)
   {
 
     $dbC = new DataBaseConfig();
@@ -32,12 +22,11 @@ class Counter
       ("connection faild: " . $conn->connect_errno);
     }
 
-    $stmt = $conn->prepare("INSERT INTO counter (counter_num, address, old_index, status) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $counter_num, $address, $old_index, $status);
+    $stmt = $conn->prepare("INSERT INTO counter (counter_num,code_client,address,old_index,status) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssii", $counter_num, $code_client, $address, $old_index, $status);
 
     return $stmt->execute();
   }
-
 
   public function del_counter($counter_num)
   {
@@ -60,7 +49,7 @@ class Counter
     return $stmt->execute();
   }
 
-  public function up_counter($oldCounter, $counter_num, $address, $old_index, $status)
+  public function up_counter($counter_num, $code_client, $address, $old_index, $status, $oldCounter)
   {
 
     $dbC = new DataBaseConfig();
@@ -75,8 +64,8 @@ class Counter
       ("connection faild: " . $conn->connect_errno);
     }
 
-    $stmt = $conn->prepare("UPDATE client SET counter_num = ?, address = ?, old_index = ?, status = ? WHERE counter_num = ?");
-    $stmt->bind_param("ssss", $codeClient, $firstname, $lastname, $oldClient);
+    $stmt = $conn->prepare("UPDATE counter SET counter_num=?,code_client=?,address=?,old_index=?,status=? WHERE counter_num=?");
+    $stmt->bind_param("sssiis", $counter_num, $code_client, $address, $old_index, $status, $oldCounter);
 
     return $stmt->execute();
   }
