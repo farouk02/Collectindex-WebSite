@@ -25,11 +25,13 @@ if (isset($_POST['counter_num']) && isset($_POST['new_index']) && isset($_POST['
 
   $sql = "SELECT * FROM counter WHERE counter_num='" . $counter_num . "'";
 
+  /* if counter exist */
   if ($conn->query($sql)->fetch_assoc()) {
     $date = date('Y/m/d');
 
-    $sql = "SELECT id,date FROM collect WHERE counter_num='" . $counter_num . "' LIMIT 1";
+    $sql = "SELECT id,date FROM collect WHERE counter_num='" . $counter_num . "' ORDER BY id DESC LIMIT 1";
 
+    /* if collect value exist get last value */
     if ($row = $conn->query($sql)->fetch_assoc()) {
 
       $id = $row['id'];
@@ -41,19 +43,15 @@ if (isset($_POST['counter_num']) && isset($_POST['new_index']) && isset($_POST['
       $mounth = Date("m");
       $day = Date("d");
 
-      $sql = "SELECT mounth,start_day,end_day FROM collect_date WHERE mounth = '" . $mounth . "' AND '" . $day . "' BETWEEN start_day - 1 AND end_day + 1 ";
+      $sql = "SELECT mounth,start_day,end_day FROM collect_date WHERE mounth = '" . $mounth . "' AND '" . $day . "' BETWEEN start_day AND end_day ";
 
+      /* if is collect date */
       if ($row = $conn->query($sql)->fetch_assoc()) {
         $mounth = $row['mounth'];
         $start_day = $row['start_day'];
         $end_day = $row['end_day'];
 
-        if (($old_date_m == $mounth) && ($old_date_d >= $start_day && $old_date_d <= $end_day)) {
-          $sql = "UPDATE `collect` SET new_index=" . $old_index . ", date='" . $date . "' WHERE id='" . $id . "'";
-        } else {
-          $sql = "INSERT INTO `collect` (counter_num, new_index, date) VALUES ('" . $counter_num . "', " . $old_index . ", '" . $date . "')";
-        }
-        if ($conn->query($sql) === TRUE) {
+        if ($old_date_m == $mounth && $old_date_d > $start_day && $old_date_d <= $end_day) {
           $sql = "UPDATE counter SET old_index='" . $new_index . "' WHERE counter_num='" . $counter_num . "'";
 
           if ($conn->query($sql) === TRUE) {
@@ -62,8 +60,34 @@ if (isset($_POST['counter_num']) && isset($_POST['new_index']) && isset($_POST['
             echo "-1";
           }
         } else {
-          echo "Error: " . $sql . "<br>" . $conn->error;
+          $sql = "INSERT INTO `collect` (counter_num, new_index, date) VALUES ('" . $counter_num . "', " . $old_index . ", '" . $date . "')";
+          if ($conn->query($sql) === TRUE) {
+            $sql = "UPDATE counter SET old_index='" . $new_index . "' WHERE counter_num='" . $counter_num . "'";
+
+            if ($conn->query($sql) === TRUE) {
+              echo "1";
+            } else {
+              echo "-1";
+            }
+          } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+          }
         }
+      } else {
+        echo "no date";
+      }
+    } else {
+      $sql = "INSERT INTO `collect` (counter_num, new_index, date) VALUES ('" . $counter_num . "', " . $old_index . ", '" . $date . "')";
+      if ($conn->query($sql) === TRUE) {
+        $sql = "UPDATE counter SET old_index='" . $new_index . "' WHERE counter_num='" . $counter_num . "'";
+
+        if ($conn->query($sql) === TRUE) {
+          echo "1";
+        } else {
+          echo "-1";
+        }
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
       }
     }
   } else {

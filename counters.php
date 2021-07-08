@@ -84,10 +84,10 @@ if (isset($_POST["upButton"])) {
                   $stmt->execute();
                   $stmt->bind_result($counter_num, $code_client, $firstname, $lastname, $address, $old_index, $status);
 
-                  $i = 1;
+                  $i = 0;
                   while ($stmt->fetch()) {
-                    echo '<tr class="odd gradeX">';
-                    echo '<td class="center">' . $i++ . '</td>';
+                    echo '<tr class=" ' . (($i % 2 === 0) ? 'even' : 'odd') . ' ' . (!$status ? 'danger' : '') . ' ">';
+                    echo '<td class="center">' . ++$i . '</td>';
                     echo '<td class="center">' . $code_client . '</br>' . $firstname . ' ' . $lastname . '</td>';
                     echo '<td class="center">' . $counter_num . '</td>';
                     echo '<td class="center">' . $address . '</td>';

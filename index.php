@@ -144,12 +144,12 @@ if ($conn->connect_errno) {
                 $stmt->execute();
                 $stmt->bind_result($code_client, $firstname, $lastname, $username, $counter_num, $status, $new_index);
 
-                $i = 1;
+                $i = 0;
                 while ($stmt->fetch()) {
 
 
                   $conn2 = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-                  $sql = "SELECT new_index,date FROM collect INNER JOIN counter ON collect.counter_num = counter.counter_num AND collect.counter_num=? limit 1";
+                  $sql = "SELECT new_index,date FROM collect INNER JOIN counter ON collect.counter_num = counter.counter_num AND collect.counter_num=? ORDER BY id DESC limit 1";
                   $stmt2 = $conn2->prepare($sql);
                   $stmt2->bind_param("s", $counter_num);
                   $stmt2->execute();
@@ -157,8 +157,8 @@ if ($conn->connect_errno) {
                   if ($stmt2->fetch())
 
                     if ($username && $status = 1) {
-                      echo '<tr class="odd gradeX' . (($new_index - $old_index < 10) ? ' danger' : '') . '">';
-                      echo '<td class="center">' . $i++ . '</td>';
+                      echo '<tr class="' . (($i % 2 === 0) ? 'even' : 'odd') . ' ' . (($new_index - $old_index < 10) ? ' danger' : '') . '">';
+                      echo '<td class="center">' . ++$i . '</td>';
                       echo '<td class="center">' . $code_client . '</td>';
                       echo '<td class="center">' . $firstname . '</td>';
                       echo '<td class="center">' . $lastname . '</td>';
@@ -172,11 +172,11 @@ if ($conn->connect_errno) {
                       $result = $conn3->query($sql);
 
                       if ($result->num_rows === 1) {
-                        echo '<td class="center">' . $old_index . '</br><small>' . $date . '</small></td>';
+                        echo '<td class="center">' . $old_index . '</br><small>' . date('d-m-Y', strtotime($date)) . '</small></td>';
                         echo '<td class="center">' . $new_index . '</td>';
                         echo '<td class="center">' .  $new_index - $old_index . '</td>';
                       } else {
-                        echo '<td class="center warning">' . $new_index . '</br><small>' . $date . '</small></td>';
+                        echo '<td class="center warning">' . $new_index . '</br><small>' . date('d-m-Y', strtotime($date)) . '</small></td>';
                         echo '<td class="center warning"></td>';
                         echo '<td class="center warning">-</td>';
                       }
@@ -200,8 +200,8 @@ if ($conn->connect_errno) {
 
   <footer>
     <p>
-      All right reserved. Template by:
-      <a href="http://localhost.com">ADE - Collect</a>
+      All right reserved :
+      <a href="https://www.facebook.com/faroukious0"> Farouk KIOUS</a>
     </p>
   </footer>
 </div>

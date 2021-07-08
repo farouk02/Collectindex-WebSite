@@ -18,7 +18,7 @@ $mounth = Date("m");
 $day = Date("d");
 
 
-$sql = "SELECT id FROM collect_date WHERE mounth = '" . $mounth . "' AND '" . $day . "' BETWEEN start_day - 1 AND end_day + 1 ";
+$sql = "SELECT id FROM collect_date WHERE mounth = '" . $mounth . "' AND '" . $day . "' BETWEEN start_day AND end_day ";
 
 if ($conn->query($sql)->fetch_assoc()) {
   echo "1";

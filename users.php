@@ -84,10 +84,10 @@ if (isset($_POST["upButton"])) {
                   $stmt->execute();
                   $stmt->bind_result($id, $firstname, $lastname, $is_admin, $username, $password);
 
-                  $i = 1;
+                  $i = 0;
                   while ($stmt->fetch()) {
-                    echo '<tr class="odd gradeX">';
-                    echo '<td class="center">' . $i++ . '</td>';
+                    echo '<tr class=" ' . (($i % 2 === 0) ? 'even' : 'odd') . ' ">';
+                    echo '<td class="center">' . ++$i . '</td>';
                     echo '<td class="center">' . $firstname . '</td>';
                     echo '<td class="center">' . $lastname . '</td>';
                     echo '<td>' . ((!$is_admin) ? 'USER' : 'ADMIN') . '</td>';

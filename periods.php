@@ -3,6 +3,22 @@ include "view/header.php";
 if ($isAdmin) :
   require "model/Period.php";
 
+
+  $mmm  = [
+    '1' => 'Janvier',
+    '2' => 'Février',
+    '3' => 'Mars',
+    '4' => 'Avril',
+    '5' => 'Mai',
+    '6' => 'Juin',
+    '7' => 'Juillet',
+    '8' => 'Août',
+    '9' => 'Septembre',
+    '10' => 'Octobre',
+    '11' => 'Novembre',
+    '12' => 'Décembre'
+  ];
+
   $p = new Period();
   $dbC = new DataBaseConfig();
   $servername = $dbC->servername;
@@ -94,11 +110,11 @@ if ($isAdmin) :
                   $stmt->execute();
                   $stmt->bind_result($id, $mounth, $start_day, $end_day);
 
-                  $i = 1;
+                  $i = 0;
                   while ($stmt->fetch()) {
-                    echo '<tr class="odd gradeX">';
-                    echo '<td class="center">' . $i++ . '</td>';
-                    echo '<td class="center">' . $mounth . '</td>';
+                    echo '<tr class=" ' . (($i % 2 === 0) ? 'even' : 'odd') . ' ">';
+                    echo '<td class="center">' . ++$i . '</td>';
+                    echo '<td class="center">' . $mounth . ' ' . $mmm["$mounth"] . '</td>';
                     echo '<td class="center"><strong>' . $start_day . '</strong> vers <strong>' . $end_day . '</strong></td>';
                     echo '<td class="center">';
                     echo '<button onClick="upM(this)" class="btn btn-warning btn-sm" data-toggle="modal" data="' . $id . '" mounth="' . $mounth . '" start_day="' . $start_day . '" end_day="' . $end_day . '">Modifier</button> ';
